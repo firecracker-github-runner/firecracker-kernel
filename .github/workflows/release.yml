@@ -22,14 +22,20 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
 
+      - name: Get the tag name
+        id: get_tag_name
+        run: echo ::set-output name=tag_name::$(git tag --points-at HEAD)
+
       - name: Build Kernel
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
-          ./build.sh
+          # sudo apt-get update
+          # sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+          # ./build.sh
+          mkdir -p dist
+          echo "Building kernel" >> dist/vmlinux
 
       - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
-        if: startsWith(github.ref, 'refs/tags/debug/')
+        if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           draft: true
@@ -38,7 +44,7 @@ jobs:
             dist/vmlinux
 
       - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
