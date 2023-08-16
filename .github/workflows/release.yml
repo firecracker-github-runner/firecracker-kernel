@@ -3,8 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - 'release/*'
-      - 'test/*'
+      - 'v*'
+      - 'debug/*'
 
 jobs:
   release:
@@ -23,15 +23,16 @@ jobs:
           touch dist/vmlinux
 
       - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
-        if: startsWith(github.ref, 'refs/tags/test/')
+        if: startsWith(github.ref, 'refs/tags/debug/')
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           draft: true
+          automatic_release_tag: debug
           files: |
             dist/vmlinux
 
       - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
-        if: startsWith(github.ref, 'refs/tags/release/')
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
