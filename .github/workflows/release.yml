@@ -33,7 +33,7 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Stop if not a tag
+      - name: Blow up if we couldn't find the proper tag
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/') == 'false' && startsWith(steps.get_tag_name.outputs.tag_name, 'v') == 'false'
         run: exit 78
 
@@ -45,8 +45,9 @@ jobs:
           mkdir -p dist
           echo "Hello World" > dist/vmlinux
 
-      - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
+      - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
+        uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           draft: true
@@ -54,8 +55,9 @@ jobs:
           files: |
             dist/vmlinux
 
-      - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
+      - name: Create Release (release)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
+        uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
