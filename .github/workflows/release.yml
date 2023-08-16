@@ -8,6 +8,11 @@ on:
     tags:
       - 'v*'
       - 'debug/*'
+  # Github actions cannot trigger on tags created by other actions
+  workflow_run:
+    workflows: ["Update Kernel"]
+    types:
+      - completed
 
 jobs:
   release:
