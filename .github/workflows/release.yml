@@ -9,20 +9,24 @@ on:
       - 'v*'
       - 'debug/*'
   # Github actions cannot trigger on tags created by other actions
-  workflow_run:
-    workflows: ["Update Kernel"]
-    types:
-      - completed
+  repository_dispatch:
+    types: [release]
 
 jobs:
   release:
     name: release
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Check out the repo (dispatch)
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        with:
+          ref: ${{ github.event.client_payload.ref }}
 
-        # We cannot use GIT_TAG here because it is not set for workflow_run
+      - name: Check out the repo (tag)
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        with:
+          ref: ${{ github.event.ref }}
+
       - name: Get the tag name
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
@@ -33,9 +37,11 @@ jobs:
 
       - name: Build Kernel
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
-          ./build.sh
+          # sudo apt-get update
+          # sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+          # ./build.sh
+          mkdir -p dist
+          echo "Hello World" > dist/vmlinux
 
       - uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
@@ -51,5 +57,6 @@ jobs:
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
+          automatic_release_tag: ${{ steps.get_tag_name.outputs.tag_name }}
           files: |
             dist/vmlinux

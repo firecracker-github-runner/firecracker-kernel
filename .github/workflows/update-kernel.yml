@@ -2,8 +2,12 @@ name: Update Kernel
 
 permissions:
   contents: write
+  actions: write
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # every 6 hours
     - cron: '0 */6 * * *'
@@ -23,9 +27,16 @@ jobs:
         echo "${{ steps.get_latest_kernel.outputs.latestversion }}" > versions/kernel
     - name: Commit changes
       uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
+      id: commit
       with:
         default_author: github_actions
         message: 'Bump kernel version to ${{ steps.get_latest_kernel.outputs.latestversion }}'
         add: 'versions/kernel'
         push: true
         tag: 'v${{ steps.get_latest_kernel.outputs.latestversion }}'
+    - name: Dispatch release event
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        event-type: release
+        client-payload: '{"ref": "${{ steps.commit.outputs.commit_long_sha }}"}'
