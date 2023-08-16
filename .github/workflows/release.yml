@@ -22,9 +22,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
 
+        # We cannot use GIT_TAG here because it is not set for workflow_run
       - name: Get the tag name
         id: get_tag_name
-        run: echo ::set-output name=tag_name::$(git tag --points-at HEAD)
+        run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build Kernel
         run: |
