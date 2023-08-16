@@ -35,8 +35,8 @@ jobs:
         push: true
         tag: 'v${{ steps.get_latest_kernel.outputs.latestversion }}'
     - name: Dispatch release event
-      uses: peter-evans/repository-dispatch@v1
       if: steps.commit.outputs.committed == 'true'
+      uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: release
