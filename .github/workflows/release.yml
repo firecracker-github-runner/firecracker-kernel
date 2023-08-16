@@ -27,7 +27,7 @@ jobs:
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           draft: true
-          automatic_release_tag: debug
+          automatic_release_tag: false
           files: |
             dist/vmlinux
 
