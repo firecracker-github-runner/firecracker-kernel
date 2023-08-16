@@ -1,5 +1,8 @@
 name: Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -16,8 +19,8 @@ jobs:
 
       - name: Build Kernel
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+          # sudo apt-get update
+          # sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
           # ./build.sh
           mkdir -p dist
           touch dist/vmlinux
