@@ -30,4 +30,3 @@ jobs:
         default_author: github_actions
         message: 'Bump firecracker version to ${{ steps.get_latest_firecracker.outputs.latestversion }}'
         add: 'versions/firecracker'
-        push: false
