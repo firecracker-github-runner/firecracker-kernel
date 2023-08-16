@@ -20,10 +20,10 @@ jobs:
     - name: Get latest linux kernel version for 5.10
       id: get_latest_kernel
       run: |
-        curl -s https://www.kernel.org/releases.json | jq -r '.releases[] | select(.version | startswith("5.10")) | .version' | sort -V | tail -n 1
+        echo latestversion=$(curl -s https://www.kernel.org/releases.json | jq -r '.releases[] | select(.version | startswith("5.10")) | .version' | sort -V | tail -n 1) >> $GITHUB_OUTPUT
     - name: Update kernel version file
       run: |
-        echo "${{ steps.get_latest_kernel.outputs.stdout }}" > versions/kernel
+        echo "${{ steps.get_latest_kernel.outputs.latestversion }}" > versions/kernel
     - name: Commit changes
       uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
       with:
@@ -31,4 +31,4 @@ jobs:
         message: 'Bump kernel version'
         add: 'versions/kernel'
         push: false
-        tag: 'debug/${{ steps.get_latest_kernel.outputs.stdout }}'
+        tag: 'debug/${{ steps.get_latest_kernel.outputs.latestversion }}'
