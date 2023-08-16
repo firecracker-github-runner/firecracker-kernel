@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  push: 
+    branches: 
+      - main
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+
+      - name: Build Kernel
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+          ./build.sh
