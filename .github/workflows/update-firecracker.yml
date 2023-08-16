@@ -1,0 +1,33 @@
+name: Update Firecracker Commit
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+#   schedule:
+#     # every 6 hours
+#     - cron: '0 */6 * * *'
+
+jobs:
+  update_firecracker:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Get latest firecracker commit hash
+      id: get_latest_firecracker
+      run: |
+        echo latestversion=$(curl -s https://api.github.com/repos/firecracker-microvm/firecracker/releases/latest | jq -r '.tag_name' | sed 's/^v//') >> $GITHUB_OUTPUT
+    - name: Update firecracker version file
+      run: |
+        echo "${{ steps.get_latest_firecracker.outputs.latestversion }}" > versions/firecracker
+    - name: Commit changes
+      uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
+      with:
+        default_author: github_actions
+        message: 'Bump firecracker version to ${{ steps.get_latest_firecracker.outputs.latestversion }}'
+        add: 'versions/firecracker'
+        push: false
