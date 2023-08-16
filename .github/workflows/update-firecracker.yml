@@ -13,14 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+
     - name: Get latest firecracker version
       id: get_latest_firecracker
       run: |
         echo latestversion=$(curl -s https://api.github.com/repos/firecracker-microvm/firecracker/releases/latest | jq -r '.tag_name') >> $GITHUB_OUTPUT
+
     - name: Update firecracker version file
       run: |
         echo "${{ steps.get_latest_firecracker.outputs.latestversion }}" > versions/firecracker
+
     - name: Commit changes
       uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
       with:
