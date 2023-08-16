@@ -33,17 +33,11 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Blow up if we couldn't find the proper tag
-        if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/') == 'false' && startsWith(steps.get_tag_name.outputs.tag_name, 'v') == 'false'
-        run: exit 78
-
       - name: Build Kernel
         run: |
-          # sudo apt-get update
-          # sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
-          # ./build.sh
-          mkdir -p dist
-          echo "Hello World" > dist/vmlinux
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+          ./build.sh
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
