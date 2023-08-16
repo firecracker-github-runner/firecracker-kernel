@@ -20,7 +20,7 @@ jobs:
     - name: Get latest linux kernel version for 5.10
       id: get_latest_kernel
       run: |
-        curl -s https://www.kernel.org/releases.json | jq -r '.releases[] | select(.moniker | contains("5.10")) | .version' | sort -V | tail -n 1
+        curl -s https://www.kernel.org/releases.json | jq -r '.releases[] | select(.version | startswith("5.10")) | .version' | sort -V | tail -n 1
     - name: Update kernel version file
       run: |
         echo "${{ steps.get_latest_kernel.outputs.stdout }}" > versions/kernel
