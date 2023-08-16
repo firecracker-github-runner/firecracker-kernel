@@ -40,4 +40,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: release
-        client-payload: '{"ref": "${{ steps.commit.outputs.commit_long_sha }}"}'
+        client-payload: '{"ref": "v${{ steps.get_latest_kernel.outputs.latestversion }}"}'
