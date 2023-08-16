@@ -27,6 +27,10 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
+      - name: Stop if not a tag
+        if: steps.get_tag_name.outputs.tag_name == '' || !startsWith(steps.get_tag_name.outputs.tag_name, 'debug/') || !startsWith(steps.get_tag_name.outputs.tag_name, 'v')
+        run: exit 78
+
       - name: Build Kernel
         run: |
           sudo apt-get update
