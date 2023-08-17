@@ -41,18 +41,16 @@ jobs:
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
-        uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
+        uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
         with:
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
           draft: true
+          prerelease: true
           files: |
             dist/vmlinux
 
       - name: Create Release (release)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
-        uses: 'marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1'
+        uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
         with:
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
-          prerelease: false
           files: |
             dist/vmlinux
