@@ -46,7 +46,6 @@ jobs:
         uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
-          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           draft: true
           prerelease: true
           files: |
@@ -57,6 +56,5 @@ jobs:
         uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
-          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           files: |
             dist/vmlinux
