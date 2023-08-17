@@ -1,10 +1,10 @@
 # firecracker-kernel
 
-Automated builds of the Linux Kernel using Firecracker MicroVM's configurations.
+Automated builds of the Linux Kernel with Firecracker MicroVM's configuration.
 
 ## What?
 
-Automated builds using the latest 5.10 linux kernel using Firecracker's custom kernel configuration (https://github.com/firecracker-microvm/firecracker/blob/main/resources/guest_configs/microvm-kernel-x86_64-5.10.config).
+Automated builds of the latest 5.10 linux kernel with Firecracker's recommended kernel configuration (https://github.com/firecracker-microvm/firecracker/blob/main/resources/guest_configs/microvm-kernel-x86_64-5.10.config).
 
 More or less, this is automating the steps in https://github.com/firecracker-microvm/firecracker/blob/main/docs/rootfs-and-kernel-setup.md#creating-a-kernel-image
 
@@ -14,7 +14,7 @@ While Firecracker does have links to a vmlinux.bin in their docs, there's little
 
 ## Versioning
 
-Releases are versioned with the Linux Kernel. The version of Firecracker of the configuration is checked in and automatically bumped for reproducability, but it is not included in the version (TBD on if this is sufficient).
+Releases are versioned with the Linux Kernel. The version of Firecracker of the configuration is checked in and automatically bumped for reproducibility, but it is not included in the version (TBD on if this is sufficient).
 
 ## License
 
