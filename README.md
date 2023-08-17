@@ -15,3 +15,7 @@ While Firecracker does have links to a vmlinux.bin in their docs, there's little
 ## Versioning
 
 Releases are versioned with the Linux Kernel. The version of Firecracker of the configuration is checked in and automatically bumped for reproducability, but it is not included in the version (TBD on if this is sufficient).
+
+## License
+
+This repository's contents are licensed under GPL-2.0. The Linux Kernel and the resulting binary are licensed like all Linux Kernels (GPL-2.0, with some exceptions). https://github.com/torvalds/linux/blob/master/COPYING
