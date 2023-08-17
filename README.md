@@ -6,7 +6,7 @@ Automated builds of the Linux Kernel using Firecracker MicroVM's configurations.
 
 Automated builds using the latest 5.10 linux kernel using Firecracker's custom kernel configuration (https://github.com/firecracker-microvm/firecracker/blob/main/resources/guest_configs/microvm-kernel-x86_64-5.10.config).
 
-More or less, this automating the steps in https://github.com/firecracker-microvm/firecracker/blob/main/docs/rootfs-and-kernel-setup.md#creating-a-kernel-image
+More or less, this is automating the steps in https://github.com/firecracker-microvm/firecracker/blob/main/docs/rootfs-and-kernel-setup.md#creating-a-kernel-image
 
 ## Why?
 
@@ -18,4 +18,6 @@ Releases are versioned with the Linux Kernel. The version of Firecracker of the 
 
 ## License
 
-This repository's contents are licensed under GPL-2.0. The Linux Kernel and the resulting binary are licensed like all Linux Kernels (GPL-2.0, with some exceptions). https://github.com/torvalds/linux/blob/master/COPYING
+This repository's contents are licensed under GPL-2.0. The Linux Kernel and the resulting binary are licensed like all Linux Kernels (GPL-2.0, with some exceptions). 
+
+https://github.com/torvalds/linux/blob/master/COPYING
