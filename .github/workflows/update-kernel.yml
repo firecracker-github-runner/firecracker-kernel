@@ -5,6 +5,9 @@ permissions:
   actions: write
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # every 6 hours
     - cron: '0 */6 * * *'
