@@ -8,7 +8,7 @@ kernel_version=$(cat "versions/kernel")
 firecracker_version=$(cat "versions/firecracker")
 
 get_kernel() {
-	pushd "${working_path}" >> /dev/null
+	pushd "${working_path}" >>/dev/null
 
 	major_version=$(echo "${kernel_version}" | cut -d. -f1)
 	kernel_tarball="linux-${kernel_version}.tar.xz"
@@ -38,37 +38,36 @@ get_kernel() {
 
 	mv "linux-${kernel_version}" "kernel"
 
-	popd >> /dev/null
+	popd >>/dev/null
 }
 
 get_kernel_config() {
-	pushd "${working_path}/kernel" >> /dev/null
+	pushd "${working_path}/kernel" >>/dev/null
 
 	curl --fail -OL "https://raw.githubusercontent.com/firecracker-microvm/firecracker/${firecracker_version}/resources/guest_configs/microvm-kernel-x86_64-5.10.config"
-    mv microvm-kernel-x86_64-5.10.config .config
+	mv microvm-kernel-x86_64-5.10.config .config
 	make olddefconfig
 
-	popd >> /dev/null
+	popd >>/dev/null
 }
 
 build_kernel() {
-	pushd "${working_path}/kernel" >> /dev/null
+	pushd "${working_path}/kernel" >>/dev/null
 
 	make -j $(nproc ${CI:+--ignore 1}) ARCH="x86_64" vmlinux
 
-	popd >> /dev/null
+	popd >>/dev/null
 }
 
-main()
-{
-    mkdir -p ${working_path}
+main() {
+	mkdir -p ${working_path}
 	mkdir -p ${dest_path}
-	
-    get_kernel
+
+	get_kernel
 	get_kernel_config
 	build_kernel
 
-    cp ${working_path}/kernel/vmlinux ${dest_path}/vmlinux
+	cp ${working_path}/kernel/vmlinux ${dest_path}/vmlinux
 }
 
 main "$@"
