@@ -25,7 +25,7 @@ jobs:
         echo "${{ steps.get_latest_firecracker.outputs.latestversion }}" > versions/firecracker
 
     - name: Commit changes
-      uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
+      uses: EndBug/add-and-commit@67d79bd2ec7b22d7943e8cc20e7c23f53ec56ea6
       with:
         default_author: github_actions
         message: 'Bump firecracker version to ${{ steps.get_latest_firecracker.outputs.latestversion }}'
