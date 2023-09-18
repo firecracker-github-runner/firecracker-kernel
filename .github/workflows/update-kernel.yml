@@ -29,7 +29,7 @@ jobs:
         echo "${{ steps.get_latest_kernel.outputs.latestversion }}" > versions/kernel
 
     - name: Commit changes
-      uses: EndBug/add-and-commit@f91c6724df48d647dd523d222e655d20432cf7d3
+      uses: EndBug/add-and-commit@491f51fabcef75f9f09759737915b19ba4c89671
       id: commit
       with:
         default_author: github_actions
