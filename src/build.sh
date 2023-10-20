@@ -54,9 +54,15 @@ function build_kernel() {
 
   pushd "${working_path}/kernel" >>/dev/null
 
-  # make -j $(nproc ${CI:+--ignore 1}) ARCH="x86_64" vmlinux
-  touch vmlinux
+  # Allow skipping kernel build for testing
+  if [ -n "${SKIP_KERNEL_BUILD}" ]; then
+    echo "SKIP_KERNEL_BUILD is set, skipping kernel build"
+    touch vmlinux
+    popd >>/dev/null
+    return
+  fi
 
+  make -j $(nproc ${CI:+--ignore 1}) ARCH="x86_64" vmlinux
   popd >>/dev/null
 }
 
