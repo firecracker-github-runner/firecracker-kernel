@@ -85,7 +85,6 @@ function main() {
   build_kernel ${working_path}
 
   mv ${working_path}/kernel/vmlinux ${output_path}
-  sha256sum ${output_path} | tee ${output_path}.sha256.txt
 }
 
 main "$@"
