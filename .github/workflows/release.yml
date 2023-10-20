@@ -33,11 +33,15 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Build Kernel
+      - name: Build Kernel (using docker)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
-          ./build.sh
+          docker build -t firecracker-kernel-working .
+          docker run -it --rm \
+            -v ./src:/working/src:ro \
+            -v ./dist:/working/dist:rw \
+            -v ./working:/working/working:rw \
+            -v ./.deno-cache:/home/builder/.cache/deno:rw \
+            firecracker-kernel-working
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
@@ -47,7 +51,7 @@ jobs:
           draft: true
           prerelease: true
           files: |
-            dist/vmlinux
+            dist/*
 
       - name: Create Release (release)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
@@ -55,4 +59,4 @@ jobs:
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
           files: |
-            dist/vmlinux
+            dist/*
