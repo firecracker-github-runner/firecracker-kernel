@@ -1,9 +1,5 @@
 import { parse } from "$std/yaml/mod.ts";
-
-interface VersionsYaml {
-  firecracker: string;
-  kernel: { [track: string]: string };
-}
+import { VersionsYaml } from "./types.ts";
 
 async function main() {
   const versions = parse(
