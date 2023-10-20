@@ -73,6 +73,8 @@ function main() {
   local output_path="$4"
 
   echo "CI: ${CI}"
+  echo "SKIP_KERNEL_BUILD: ${SKIP_KERNEL_BUILD}"
+  echo "pwd: $(pwd)"
 
   rm -r "${working_path}/kernel" || true
   rm "${output_path}" || true
