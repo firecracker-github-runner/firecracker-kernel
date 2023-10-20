@@ -43,10 +43,9 @@ jobs:
 
       - name: Tag release
         if: steps.commit.outputs.committed == 'true'
-        uses: EndBug/add-and-commit@7e09883fa4ff7e0942138b48af371d5749a164ee
-        with:
-          push: true
-          tag: "release/${{ steps.timestamp.outputs.timestamp_sec }}"
+        run: |
+          git tag -a release/${{ steps.timestamp.outputs.timestamp_sec }}"
+          git push origin release/${{ steps.timestamp.outputs.timestamp_sec }}
 
       - name: Dispatch release event
         if: steps.commit.outputs.committed == 'true'
@@ -54,4 +53,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: release
-          client-payload: '{"ref": "${{ steps.commit.outputs.commit_long_sha }}"}'
+          client-payload: '{"ref": "release/${{ steps.timestamp.outputs.timestamp_sec }}"}'
