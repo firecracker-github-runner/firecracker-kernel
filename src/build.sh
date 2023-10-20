@@ -66,6 +66,8 @@ function main() {
   local working_path="$3"
   local output_path="$4"
 
+  echo "CI: ${CI}"
+
   rm -r "${working_path}/kernel" || true
   rm "${output_path}" || true
 
@@ -77,6 +79,7 @@ function main() {
   build_kernel ${working_path}
 
   mv ${working_path}/kernel/vmlinux ${output_path}
+  sha256sum ${output_path} | tee ${output_path}.sha256.txt
 }
 
 main "$@"
