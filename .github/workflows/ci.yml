@@ -17,6 +17,7 @@ jobs:
       - name: Build Kernel (using docker)
         run: |
           mkdir -p ./dist
+          chmod a+w ./dist
           docker build -t firecracker-kernel-working .
           docker run \
             --env CI=true \
