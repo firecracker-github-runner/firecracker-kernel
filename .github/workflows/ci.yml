@@ -17,7 +17,7 @@ jobs:
       - name: Build Kernel (using docker)
         run: |
           docker build -t firecracker-kernel-working .
-          docker run -it --rm \
+          docker run \
             --env CI=true \
             --env SKIP_KERNEL_BUILD=true \
             -v ./src:/working/src:ro \
