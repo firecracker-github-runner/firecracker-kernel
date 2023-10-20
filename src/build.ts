@@ -28,7 +28,12 @@ async function main() {
         outputPath,
       ],
     });
-    await cmd.spawn().output();
+    const result = await cmd.spawn().output();
+    if (result.code !== 0) {
+      console.log("BUILD FAILED");
+      console.log(new TextDecoder().decode(result.stderr));
+      Deno.exit(result.code);
+    }
   }
 
   const cmd = new Deno.Command("sha256sum", {
@@ -38,6 +43,12 @@ async function main() {
     stdout: "piped",
   });
   const checksums = await cmd.spawn().output();
+  if (checksums.code !== 0) {
+    console.log("CHECKSUMS FAILED");
+    console.log(new TextDecoder().decode(checksums.stderr));
+    Deno.exit(checksums.code);
+  }
+
   const checksumsText = new TextDecoder().decode(checksums.stdout);
   console.log("CHECKSUMS");
   console.log(checksumsText);
