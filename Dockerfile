@@ -37,7 +37,7 @@ RUN useradd builder -G 0 --create-home && \
 
 WORKDIR /working
 
-COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml  /working/
+COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml ./LICENSE /working/
 
 USER builder
 
