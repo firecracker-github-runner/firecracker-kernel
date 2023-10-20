@@ -16,6 +16,11 @@ jobs:
   bump_versions:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current timestamp
+        id: timestamp
+        run: |
+          echo timestamp_sec=$(date +%s) >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
@@ -35,6 +40,13 @@ jobs:
           message: "Bump versions"
           add: "versions.yaml"
           push: true
+
+      - name: Tag release
+        if: steps.commit.outputs.committed == 'true'
+        uses: EndBug/add-and-commit@70e21b325f8ec72c3aeeedab71de5662d71a2fc1
+        with:
+          push: true
+          tag: "release/${{ steps.timestamp.outputs.timestamp_sec }}"
 
       - name: Dispatch release event
         if: steps.commit.outputs.committed == 'true'
