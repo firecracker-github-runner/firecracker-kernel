@@ -31,7 +31,6 @@ async function main() {
     const result = await cmd.spawn().output();
     if (result.code !== 0) {
       console.log("BUILD FAILED");
-      console.log(new TextDecoder().decode(result.stderr));
       Deno.exit(result.code);
     }
   }
@@ -45,7 +44,6 @@ async function main() {
   const checksums = await cmd.spawn().output();
   if (checksums.code !== 0) {
     console.log("CHECKSUMS FAILED");
-    console.log(new TextDecoder().decode(checksums.stderr));
     Deno.exit(checksums.code);
   }
 
