@@ -31,7 +31,7 @@ RUN dnf install -y \
 
 COPY --from=deno --chown=root:0 /deno /usr/bin/deno
 
-RUN useradd builder -G 0 && \
+RUN useradd builder -G 0 --create-home && \
     mkdir -p /working && \
     chown -R builder:0 /working
 
@@ -41,9 +41,7 @@ COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml  /working/
 
 USER builder
 
-VOLUME /home/builder/.cache/deno
 VOLUME /working/src
 VOLUME /working/dist
-VOLUME /working/working
 
 CMD ["deno", "task", "build"]
