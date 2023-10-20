@@ -22,20 +22,29 @@ RUN dnf install -y \
     qemu-img \
     systemd-devel \
     sudo \
+    unzip \
     xz \
     yasm && \
     dnf clean all
 
 RUN useradd builder -G 0 && \
-    mkdir -p /home/builder && \
-    chown -R builder:0 /home/builder && \
-    chmod -R g=u /home/builder
+    mkdir -p /working && \
+    chown -R builder:0 /working
 
-WORKDIR /home/builder
+WORKDIR /working
 
-COPY --chown=root:0 ./build.sh ./
-COPY --chown=root:0 ./versions ./versions
+USER builder
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh
+USER root
+RUN ln -s /home/builder/.deno/bin/deno /usr/bin/deno
+
+COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml  ./
 
 USER builder
 
-CMD ["./build.sh"]
+VOLUME /home/builder/.cache/deno
+VOLUME /working/src
+VOLUME /working/dist
+VOLUME /working/working
+
+CMD ["deno", "task", "build"]

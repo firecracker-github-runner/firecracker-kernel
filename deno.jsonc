@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "$std/": "https://deno.land/std@0.204.0/"
+  },
+  "tasks": {
+    "build": "deno run --allow-read=./working,./versions.yaml --allow-write=./working,./dist --allow-env --allow-run=./src/build.sh src/build.ts"
+  }
+}

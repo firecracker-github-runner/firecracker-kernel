@@ -1,5 +1,6 @@
 working/
 dist/
+.deno-cache/
 # Devenv
 .devenv*
 devenv.local.nix
@@ -9,4 +10,3 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
-
