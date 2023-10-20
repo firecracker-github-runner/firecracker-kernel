@@ -66,7 +66,8 @@ function main() {
   local working_path="$3"
   local output_path="$4"
 
-  rm -r "${working_path}/kernel"
+  rm -r "${working_path}/kernel" || true
+  rm "${output_path}" || true
 
   mkdir -p ${working_path}
   mkdir -p $(dirname ${output_path})
