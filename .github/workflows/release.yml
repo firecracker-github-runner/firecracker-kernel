@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - "v*"
+      - "release/*"
       - "debug/*"
   # Github actions cannot trigger on tags created by other actions
   repository_dispatch:
@@ -33,9 +33,10 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Build Kernel (using docker)
+      - name: Build Kernel
         run: |
           mkdir -p dist
+          chmod a+w ./dist
           docker build -t firecracker-kernel-working .
           docker run \
             --env CI=true \
@@ -48,15 +49,17 @@ jobs:
         uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           draft: true
           prerelease: true
           files: |
             dist/*
 
       - name: Create Release (release)
-        if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
+        if: startsWith(steps.get_tag_name.outputs.tag_name, 'release/')
         uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           files: |
             dist/*
