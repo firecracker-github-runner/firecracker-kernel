@@ -1,0 +1,57 @@
+name: Bump versions
+
+permissions:
+  contents: write
+  actions: write
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Every 6 hours
+    - cron: "0 */6 * * *"
+
+jobs:
+  bump_versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current timestamp
+        id: timestamp
+        run: |
+          echo timestamp_sec=$(date +%s) >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@0df5d9c641efdff149993c321fc27c11c5df8623
+        with:
+          deno-version: v1.x
+
+      - name: Bump versions
+        run: deno task bump-versions
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@70e21b325f8ec72c3aeeedab71de5662d71a2fc1
+        id: commit
+        with:
+          default_author: github_actions
+          message: "Bump versions"
+          add: "versions.yaml"
+          push: true
+
+      - name: Tag release
+        if: steps.commit.outputs.committed == 'true'
+        uses: EndBug/add-and-commit@70e21b325f8ec72c3aeeedab71de5662d71a2fc1
+        with:
+          push: true
+          tag: "release/${{ steps.timestamp.outputs.timestamp_sec }}"
+
+      - name: Dispatch release event
+        if: steps.commit.outputs.committed == 'true'
+        uses: peter-evans/repository-dispatch@736d2012d3155f03d0a3f0b99b5eef690f8a517a
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: release
+          client-payload: '{"ref": "${{ steps.commit.outputs.commit_long_sha }}"}'

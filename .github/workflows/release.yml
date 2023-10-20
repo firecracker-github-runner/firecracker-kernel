@@ -6,8 +6,8 @@ permissions:
 on:
   push:
     tags:
-      - 'v*'
-      - 'debug/*'
+      - "release/*"
+      - "debug/*"
   # Github actions cannot trigger on tags created by other actions
   repository_dispatch:
     types: [release]
@@ -35,24 +35,31 @@ jobs:
 
       - name: Build Kernel
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
-          ./build.sh
+          mkdir -p dist
+          chmod a+w ./dist
+          docker build -t firecracker-kernel-working .
+          docker run \
+            --env CI=true \
+            -v ./src:/working/src:ro \
+            -v ./dist:/working/dist:rw \
+            firecracker-kernel-working
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
-        uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
+        uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           draft: true
           prerelease: true
           files: |
-            dist/vmlinux
+            dist/*
 
       - name: Create Release (release)
-        if: startsWith(steps.get_tag_name.outputs.tag_name, 'v')
-        uses: 'softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d'
+        if: startsWith(steps.get_tag_name.outputs.tag_name, 'release/')
+        uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
           files: |
-            dist/vmlinux
+            dist/*

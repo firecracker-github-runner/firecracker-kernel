@@ -1,0 +1,27 @@
+name: CI
+
+permissions:
+  contents: write
+
+on:
+  push:
+
+jobs:
+  smoke_test:
+    name: smoke_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
+      - name: Build Kernel (using docker)
+        run: |
+          mkdir -p ./dist
+          chmod a+w ./dist
+          docker build -t firecracker-kernel-working .
+          docker run \
+            --env CI=true \
+            --env SKIP_KERNEL_BUILD=true \
+            -v ./src:/working/src:ro \
+            -v ./dist:/working/dist:rw \
+            firecracker-kernel-working
