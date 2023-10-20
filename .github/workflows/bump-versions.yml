@@ -44,7 +44,7 @@ jobs:
       - name: Tag release
         if: steps.commit.outputs.committed == 'true'
         run: |
-          git tag -a release/${{ steps.timestamp.outputs.timestamp_sec }}"
+          git tag -a release/${{ steps.timestamp.outputs.timestamp_sec }}
           git push origin release/${{ steps.timestamp.outputs.timestamp_sec }}
 
       - name: Dispatch release event
