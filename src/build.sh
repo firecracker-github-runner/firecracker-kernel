@@ -57,7 +57,7 @@ function build_kernel() {
   # Allow skipping kernel build for testing
   if [ -n "${SKIP_KERNEL_BUILD}" ]; then
     echo "SKIP_KERNEL_BUILD is set, skipping kernel build"
-    touch vmlinux
+    echo "test" >vmlinux
     popd >>/dev/null
     return
   fi
