@@ -17,6 +17,10 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     steps:
+      - name: Get a start timestamp
+        id: get_timestamp
+        run: echo "now=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+
       - name: Check out the repo (dispatch)
         if: github.event_name == 'repository_dispatch'
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -66,5 +70,7 @@ jobs:
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
           target_commitish: ${{ steps.get_commit_hash.outputs.commit_hash }}
+          name: auto-release-${{ steps.get_timestamp.outputs.now }}
+          body_path: dist/versions.yaml
           files: |
             dist/*
