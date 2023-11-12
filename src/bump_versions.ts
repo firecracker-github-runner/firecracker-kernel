@@ -23,7 +23,13 @@ async function getAvailableKernelReleases(): Promise<string[]> {
   const versions = json.releases.filter((release) =>
     // Exclude release candidates;. Semver doesn't support them, and we don't want them.
     !release.version.includes("-")
-  ).map((release) => semver.parse(release.version));
+  ).map((release) =>
+    // semver doesn't support x.y versions, so we add a .0 to them.
+    // TODO: Maybe just don't use semver parsing...
+    release.version.split(".").length === 2
+      ? `${release.version}.0`
+      : release.version
+  ).map((version) => semver.parse(version));
   return semver.sort(versions).map((version) => semver.format(version));
 }
 
