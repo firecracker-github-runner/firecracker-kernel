@@ -33,6 +33,10 @@ jobs:
         id: get_tag_name
         run: echo "tag_name=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
+      - name: Get the commit hash
+        id: get_commit_hash
+        run: echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
       - name: Build Kernel
         run: |
           mkdir -p dist
@@ -50,7 +54,7 @@ jobs:
         uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
-          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_commit_hash.outputs.commit_hash }}
           draft: true
           prerelease: true
           files: |
@@ -61,6 +65,6 @@ jobs:
         uses: "softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
-          target_commitish: ${{ steps.get_tag_name.outputs.tag_name }}
+          target_commitish: ${{ steps.get_commit_hash.outputs.commit_hash }}
           files: |
             dist/*
