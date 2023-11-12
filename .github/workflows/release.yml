@@ -48,7 +48,6 @@ jobs:
           docker build -t firecracker-kernel-working .
           docker run \
             --env CI=true \
-            --env SKIP_KERNEL_BUILD=true \
             -v ./src:/working/src:ro \
             -v ./dist:/working/dist:rw \
             firecracker-kernel-working
