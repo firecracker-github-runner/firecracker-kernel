@@ -43,7 +43,7 @@ function get_kernel_config() {
   pushd "${working_path}/kernel" >>/dev/null
 
   curl --fail -OL "https://raw.githubusercontent.com/firecracker-microvm/firecracker/${firecracker_version}/resources/guest_configs/microvm-kernel-ci-x86_64-5.10.config"
-  mv microvm-kernel-x86_64-5.10.config .config
+  mv microvm-kernel-ci-x86_64-5.10.config .config
   make olddefconfig
 
   popd >>/dev/null

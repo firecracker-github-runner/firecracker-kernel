@@ -4,7 +4,7 @@ Automated builds of the Linux Kernel with Firecracker MicroVM's configuration.
 
 ## What?
 
-Automated builds of the latest 5.10 linux kernel with Firecracker's recommended kernel configuration (https://github.com/firecracker-microvm/firecracker/blob/main/resources/guest_configs/microvm-kernel-x86_64-5.10.config).
+Automated builds of the latest 5.10 linux kernel with Firecracker's recommended kernel configuration (https://github.com/firecracker-microvm/firecracker/blob/main/resources/guest_configs/microvm-kernel-ci-x86_64-5.10.config).
 
 More or less, this is automating the steps in https://github.com/firecracker-microvm/firecracker/blob/main/docs/rootfs-and-kernel-setup.md#creating-a-kernel-image
 
