@@ -22,7 +22,7 @@ jobs:
           echo timestamp_sec=$(date +%s) >> $GITHUB_OUTPUT
 
       - name: Checkout
-        uses: actions/checkout@b32f140b0c872d58512e0a66172253c302617b90
+        uses: actions/checkout@8eb1f6a495037164bea451156472f35fdd6bafc0
 
       - name: Setup Deno
         uses: denoland/setup-deno@041b854f97b325bd60e53e9dc2de9cb9f9ac0cba
