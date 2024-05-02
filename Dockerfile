@@ -1,4 +1,4 @@
-FROM denoland/deno:bin@sha256:e7c135ff1f3781cf2bbb510f795899b0c24f73458412d0ea61a5416bf9f9ac29 AS deno
+FROM denoland/deno:bin@sha256:159cf2a110258b510d8661e700140a56a4bbbe1dd93eaa5437551c62de462892 AS deno
 
 FROM fedora:latest@sha256:4e007f288dce23966216be81ef62ba05d139b9338f327c1d1c73b7167dd47312
 
