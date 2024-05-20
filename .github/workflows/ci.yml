@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
+        uses: actions/checkout@b1ec3021b8fa02164da82ca1557d017d83b0e179
 
       - name: Build Kernel (using docker)
         run: |
