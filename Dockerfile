@@ -1,6 +1,6 @@
 FROM denoland/deno:bin@sha256:1b42b62b93972863073f2f9c598b0674bcaa14ea186b72cc9ef7f8ef5a6f16d0 AS deno
 
-FROM fedora:latest@sha256:5ce8497aeea599bf6b54ab3979133923d82aaa4f6ca5ced1812611b197c79eb0
+FROM fedora:latest@sha256:b7b4b222c2a433e831c006a49a397009640cc30e097824410a35b160be4a176b
 
 RUN dnf install -y \
     bc \
