@@ -11,7 +11,7 @@ function main {
   chmod a+w ./dist
   chmod a+w ./working
 
-  docker run -it --rm \
+  docker run --rm \
     -v ./src:/working/src:ro \
     -v ./dist:/working/dist:rw \
     -v ./working:/working/working:rw \
