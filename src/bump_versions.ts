@@ -1,6 +1,6 @@
-import { equal } from "$equal/mod.ts";
-import * as semver from "$std/semver/mod.ts";
-import * as yaml from "$std/yaml/mod.ts";
+import * as semver from "@std/semver";
+import * as yaml from "@std/yaml";
+import { isDeepStrictEqual } from "node:util";
 import { VersionsYaml } from "./types.ts";
 
 interface KernelReleasesPartial {
@@ -30,7 +30,9 @@ async function getAvailableKernelReleases(): Promise<string[]> {
       ? `${release.version}.0`
       : release.version
   ).map((version) => semver.parse(version));
-  return semver.sort(versions).map((version) => semver.format(version));
+
+  versions.sort(semver.compare);
+  return versions.map((version) => semver.format(version));
 }
 
 function getLatestKernelVersion(
@@ -66,7 +68,7 @@ async function main() {
   };
   console.log("Found versions:", newVersions);
 
-  if (equal(oldVersions, newVersions)) {
+  if (isDeepStrictEqual(oldVersions, newVersions)) {
     console.log("Versions are the same, not updating");
   } else {
     Deno.writeTextFileSync(

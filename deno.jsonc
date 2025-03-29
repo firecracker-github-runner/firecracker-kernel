@@ -1,10 +1,11 @@
 {
   "imports": {
-    "$std/": "https://deno.land/std@0.204.0/",
+    "@std/semver": "jsr:@std/semver@^1.0.4",
+    "@std/yaml": "jsr:@std/yaml@^1.0.5",
     "$equal/": "https://deno.land/x/equal@v1.5.0/"
   },
   "tasks": {
-    "build": "deno run --allow-read=./working,./versions.yaml,./LICENSE --allow-write=./working,./dist --allow-env --allow-run=./src/build.sh,sha256sum src/build.ts",
+    "build": "deno run --allow-read=./working,./versions.yaml --allow-write=./working,./dist --allow-env --allow-run=./src/build.sh,sha256sum src/build.ts",
     "bump-versions": "deno run --allow-read=./versions.yaml --allow-write=./versions.yaml --allow-net=api.github.com,www.kernel.org src/bump_versions.ts"
   }
 }

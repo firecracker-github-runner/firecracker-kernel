@@ -1,4 +1,4 @@
-import { parse } from "$std/yaml/mod.ts";
+import { parse } from "@std/yaml";
 import { VersionsYaml } from "./types.ts";
 
 async function main() {
