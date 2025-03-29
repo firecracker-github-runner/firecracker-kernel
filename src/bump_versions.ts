@@ -63,7 +63,10 @@ async function main() {
     kernel: Object.fromEntries(
       kernelTracks.map((
         track,
-      ) => [track, getLatestKernelVersion(track, sortedReleases)]),
+      ) => [track, {
+        version: getLatestKernelVersion(track, sortedReleases),
+        config: oldVersions.kernel[track].config,
+      }]),
     ),
   };
   console.log("Found versions:", newVersions);

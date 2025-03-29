@@ -38,11 +38,14 @@ function get_kernel() {
 function get_kernel_config() {
   local working_path="$1"
   local firecracker_version="$2"
+  local fc_kernel_config_filename="$3"
+  local src_url="https://raw.githubusercontent.com/firecracker-microvm/firecracker/${firecracker_version}/resources/guest_configs/${fc_kernel_config_filename}"
 
   pushd "${working_path}/kernel" >>/dev/null
 
-  curl --fail -OL "https://raw.githubusercontent.com/firecracker-microvm/firecracker/${firecracker_version}/resources/guest_configs/microvm-kernel-ci-x86_64-5.10.config"
-  mv microvm-kernel-ci-x86_64-*.config .config
+  curl --fail -OL "${src_url}"
+
+  mv ${fc_kernel_config_filename} .config
 
   # Throw if .config somehow does not exist (olddefconfig will silently create it)
   if [ ! -f .config ]; then
@@ -84,8 +87,9 @@ function build_kernel() {
 function main() {
   local kernel_version="$1"
   local firecracker_version="$2"
-  local working_path="$3"
-  local output_path="$4"
+  local fc_kernel_config_filename="$3"
+  local working_path="$4"
+  local output_path="$5"
 
   # Init default values
   CI=${CI:-}
@@ -102,7 +106,7 @@ function main() {
   mkdir -p $(dirname ${output_path})
 
   get_kernel ${working_path} ${kernel_version}
-  get_kernel_config ${working_path} ${firecracker_version}
+  get_kernel_config ${working_path} ${firecracker_version} ${fc_kernel_config_filename}
   build_kernel ${working_path}
 
   mv ${working_path}/kernel/vmlinux ${output_path}

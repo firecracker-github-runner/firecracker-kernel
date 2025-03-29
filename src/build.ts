@@ -18,8 +18,9 @@ async function main() {
 
     const cmd = new Deno.Command("./src/build.sh", {
       args: [
-        versions.kernel[track],
+        versions.kernel[track].version,
         firecrackerVersion,
+        versions.kernel[track].config,
         workingDir,
         outputPath,
       ],

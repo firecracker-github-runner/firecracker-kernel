@@ -27,7 +27,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@fa660b328d065f7683e7303976bd81e2d58e98ae
         with:
-          deno-version: v1.x
+          deno-version: v2.x
 
       - name: Bump versions
         run: deno task bump-versions
