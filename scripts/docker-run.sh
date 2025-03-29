@@ -7,9 +7,11 @@ function main {
 
   mkdir -p ./dist
   mkdir -p ./working
+  mkdir -p ./.deno-cache
 
   chmod a+w ./dist
   chmod a+w ./working
+  chmod a+w ./.deno-cache
 
   docker run --rm \
     -v ./src:/working/src:ro \
