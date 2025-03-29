@@ -43,14 +43,8 @@ jobs:
 
       - name: Build Kernel
         run: |
-          mkdir -p dist
-          chmod a+w ./dist
-          docker build -t firecracker-kernel-working .
-          docker run \
-            --env CI=true \
-            -v ./src:/working/src:ro \
-            -v ./dist:/working/dist:rw \
-            firecracker-kernel-working
+          ./scripts/docker-build.sh
+          ./scripts/docker-run.sh --env CI=true
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -eE -o pipefail
-set -x
+set -eux -o pipefail
 
 function get_kernel() {
   local working_path="$1"
@@ -43,7 +42,14 @@ function get_kernel_config() {
   pushd "${working_path}/kernel" >>/dev/null
 
   curl --fail -OL "https://raw.githubusercontent.com/firecracker-microvm/firecracker/${firecracker_version}/resources/guest_configs/microvm-kernel-ci-x86_64-5.10.config"
-  mv microvm-kernel-ci-x86_64-5.10.config .config
+  mv microvm-kernel-ci-x86_64-*.config .config
+
+  # Throw if .config somehow does not exist (olddefconfig will silently create it)
+  if [ ! -f .config ]; then
+    echo "No .config file found, aborting"
+    exit 1
+  fi
+
   make olddefconfig
 
   popd >>/dev/null
@@ -62,6 +68,15 @@ function build_kernel() {
     return
   fi
 
+  # All of the contents of the tar are timestamped with the build time
+  # We somewhat arbitrarily use Makefile's timestamp
+  local timestamp=$(stat -c %Y Makefile)
+
+  # see: https://docs.kernel.org/kbuild/reproducible-builds.html
+  export KBUILD_BUILD_USER="firecracker-github-runner/firecracker-kernel"
+  export KBUILD_BUILD_HOST="github-runner"
+  export KBUILD_BUILD_TIMESTAMP="$(date -u -d "@${timestamp}" +"%Y-%m-%d %H:%M:%S %z")"
+
   make -j $(nproc ${CI:+--ignore 1}) ARCH="x86_64" vmlinux
   popd >>/dev/null
 }
@@ -71,6 +86,10 @@ function main() {
   local firecracker_version="$2"
   local working_path="$3"
   local output_path="$4"
+
+  # Init default values
+  CI=${CI:-}
+  SKIP_KERNEL_BUILD=${SKIP_KERNEL_BUILD:-}
 
   echo "CI: ${CI}"
   echo "SKIP_KERNEL_BUILD: ${SKIP_KERNEL_BUILD}"

@@ -49,7 +49,6 @@ async function main() {
 
   Deno.writeFileSync("./dist/checksums.txt", checksums.stdout);
   Deno.copyFileSync("./versions.yaml", "./dist/versions.yaml");
-  Deno.copyFileSync("./LICENSE", "./dist/LICENSE");
 }
 
 main();

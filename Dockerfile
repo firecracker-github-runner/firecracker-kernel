@@ -4,7 +4,7 @@ FROM ghcr.io/firecracker-github-runner/ubuntu-kernel-dev-image:main@sha256:741b7
 
 COPY --chown=root:0 --from=deno /deno /usr/bin/deno
 
-COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml ./LICENSE /working/
+COPY --chown=root:0 ./deno.jsonc ./deno.lock ./versions.yaml /working/
 
 VOLUME /working/src
 VOLUME /working/dist
