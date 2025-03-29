@@ -1,33 +1,41 @@
-FROM denoland/deno:bin@sha256:9c02190126426fd8e391c4585c83d0cbc643f943c0b311ca4d8626443d963f43 AS deno
+FROM denoland/deno:bin@sha256:e6dbea555ae97b51f206c77f5d9fbfec3965976f9658145c7bc2f9303bdc87c3 AS deno
 
-FROM fedora:latest@sha256:b7b4b222c2a433e831c006a49a397009640cc30e097824410a35b160be4a176b
+FROM ubuntu:noble@sha256:3afff29dffbc200d202546dc6c4f614edc3b109691e7ab4aa23d02b42ba86790
 
-RUN dnf install -y \
+RUN apt update \
+    && apt install -y \
+    build-essential \
+    libelf-dev \
+    xz-utils \
+    \
+    # see: https://docs.kernel.org/process/changes.html#current-minimal-requirements
     bc \
+    bindgen \
     bison \
-    debootstrap \
-    diffutils \
-    e2fsprogs \
-    elfutils-libelf-devel \
-    findutils \
+    btrfs-progs \
+    clang \
+    curl \
     flex \
-    gcc \
-    gcc-c++ \
-    git \
-    kiwi \
-    kmod \
-    openssl \
-    openssl-devel \
+    gawk \
+    # grub2-common \
+    global \
+    iptables \
+    jfsutils \
+    libssl-dev \
+    # mcelog \
+    # mkimage \
+    # nfs-utils \
     make \
-    parted \
-    patch \
-    qemu-img \
-    systemd-devel \
-    sudo \
-    unzip \
-    xz \
-    yasm && \
-    dnf clean all
+    pahole \
+    # pcmciautils \
+    # ppp \
+    # quota-tools \
+    reiserfsprogs \
+    squashfs-tools \
+    udev \
+    xfsprogs \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=deno --chown=root:0 /deno /usr/bin/deno
 

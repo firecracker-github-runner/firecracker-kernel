@@ -31,7 +31,7 @@ async function main() {
     }
   }
 
-  const cmd = new Deno.Command("sha256sum", {
+  const cmd = new Deno.Command("/usr/bin/sha256sum", {
     args: outputFilenames,
     cwd: "./dist",
     clearEnv: true,
