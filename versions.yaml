@@ -4,5 +4,5 @@ kernel:
     version: 5.10.237
     config: microvm-kernel-ci-x86_64-5.10.config
   '6.12':
-    version: 6.12.30
+    version: 6.12.31
     config: microvm-kernel-ci-x86_64-6.1.config
