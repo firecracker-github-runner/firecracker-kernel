@@ -49,7 +49,7 @@ jobs:
 
       - name: Dispatch release event
         if: steps.commit.outputs.committed == 'true'
-        uses: peter-evans/repository-dispatch@7d980a9b9f8ecf8955ea90507b3ed89122f53215
+        uses: peter-evans/repository-dispatch@6846232b0e1bfd17c14dce7ac13fd3fcefe22c0c
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: release
