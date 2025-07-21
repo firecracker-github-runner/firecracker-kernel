@@ -12,6 +12,9 @@ async function getFirecrackerVersion(): Promise<string> {
     "https://api.github.com/repos/firecracker-microvm/firecracker/releases/latest",
   );
   const json = await res.json();
+  if (json.tag_name == null || json.tag_name.length === 0) {
+    throw new Error("Received empty tag_name for firecracker from GitHub releases API");
+  }
   return json.tag_name;
 }
 
