@@ -23,13 +23,13 @@ jobs:
 
       - name: Check out the repo (dispatch)
         if: github.event_name == 'repository_dispatch'
-        uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
         with:
           ref: ${{ github.event.client_payload.ref }}
 
       - name: Check out the repo (tag)
         if: github.event_name == 'push'
-        uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
         with:
           ref: ${{ github.event.ref }}
 
