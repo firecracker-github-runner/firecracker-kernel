@@ -1,4 +1,4 @@
-firecracker: v1.13.0
+firecracker: v1.13.1
 kernel:
   '5.10':
     version: 5.10.241
