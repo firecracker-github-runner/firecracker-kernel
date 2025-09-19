@@ -48,7 +48,7 @@ jobs:
 
       - name: Create Release (debug)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'debug/')
-        uses: "softprops/action-gh-release@19cd0bcd2b95a5f9e0aab8377b3cae33e51c2234"
+        uses: "softprops/action-gh-release@97d42c1b50f585f357413698aa1b779307aa0d52"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
           target_commitish: ${{ steps.get_commit_hash.outputs.commit_hash }}
@@ -59,7 +59,7 @@ jobs:
 
       - name: Create Release (release)
         if: startsWith(steps.get_tag_name.outputs.tag_name, 'release/')
-        uses: "softprops/action-gh-release@19cd0bcd2b95a5f9e0aab8377b3cae33e51c2234"
+        uses: "softprops/action-gh-release@97d42c1b50f585f357413698aa1b779307aa0d52"
         with:
           tag_name: ${{ steps.get_tag_name.outputs.tag_name }}
           target_commitish: ${{ steps.get_commit_hash.outputs.commit_hash }}
