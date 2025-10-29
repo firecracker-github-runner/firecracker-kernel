@@ -1,8 +1,8 @@
 firecracker: v1.13.1
 kernel:
   '5.10':
-    version: 5.10.245
+    version: 5.10.246
     config: microvm-kernel-ci-x86_64-5.10.config
   '6.12':
-    version: 6.12.55
+    version: 6.12.56
     config: microvm-kernel-ci-x86_64-6.1.config
