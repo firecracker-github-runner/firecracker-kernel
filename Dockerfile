@@ -1,6 +1,6 @@
 FROM denoland/deno:bin@sha256:2f5f9d651af33c337767c423a340f76df35e35ff8ff4734210237b9c6fed94c7 AS deno
 
-FROM ghcr.io/firecracker-github-runner/ubuntu-kernel-dev-image:main@sha256:e143b3220eb0a28031744b3c89dffe4266e8fc733f7e60088cb705b8dd1ec367
+FROM ghcr.io/firecracker-github-runner/ubuntu-kernel-dev-image:main@sha256:e311cf945c0acb1ecad967a175d005ca6c2d99deb163ca860ddde14ffce7f923
 
 COPY --chown=root:0 --from=deno /deno /usr/bin/deno
 
