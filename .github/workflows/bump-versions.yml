@@ -33,7 +33,7 @@ jobs:
         run: deno task bump-versions
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@22c9062c9c5b6201f08d4ca4ffc001d380046644
+        uses: EndBug/add-and-commit@2df77c10fb02f084460f06c7d7a576a43bd00b86
         id: commit
         with:
           default_author: github_actions
