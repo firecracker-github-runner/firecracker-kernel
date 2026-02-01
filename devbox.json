@@ -1,6 +1,6 @@
 {
   "$schema":  "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
-  "packages": ["deno@2.6.5"],
+  "packages": ["deno@2.6.6"],
   "shell": {
     "init_hook": [],
     "scripts": {}
