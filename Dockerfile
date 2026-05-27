@@ -1,4 +1,4 @@
-FROM denoland/deno:bin@sha256:cb864f50f92cebab7a320e1488952bb2f853bcddc9c9074f552262bba6da0063 AS deno
+FROM denoland/deno:bin@sha256:324e7887040b297299ec097be8dc570f5eca2c808fe3ad9c52c61f9ab588938c AS deno
 
 FROM ghcr.io/firecracker-github-runner/ubuntu-kernel-dev-image:main@sha256:eed5296dd13035446ff33b13085e51ece0406888ccf1dca5b60e5668a83a13a7
 
