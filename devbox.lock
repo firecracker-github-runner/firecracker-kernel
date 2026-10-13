@@ -1,65 +1,65 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "deno@2.9.5": {
-      "last_modified": "2026-08-27T07:16:00Z",
-      "resolved": "github:NixOS/nixpkgs/c27cdad491a991b11ed731760aa2ef8db0cb0410#deno",
+    "deno@2.9.7": {
+      "last_modified": "2026-10-08T19:21:32Z",
+      "resolved": "github:NixOS/nixpkgs/8edc0c72e3a38faf5434e40d1f19431125fe4b30#deno",
       "source": "devbox-search",
-      "version": "2.9.5",
+      "version": "2.9.7",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/94pdxnq7cfdymzmr19144spl0rp34mjg-deno-2.9.5",
+              "path": "/nix/store/4jixsxbkgx6wv22kx7s4nnpp4fbmy65l-deno-2.9.7",
               "default": true
             },
             {
               "name": "denort",
-              "path": "/nix/store/ci5jh3b5yr2dz36q8qb9qs4za2nkkgz3-deno-2.9.5-denort"
+              "path": "/nix/store/l377ncs4dsdmfr36yjkvxk4lqsk6hfqr-deno-2.9.7-denort"
             },
             {
               "name": "libdenort",
-              "path": "/nix/store/lcxc1mm8hz5i9jhdpv0cb233nxf9r64g-deno-2.9.5-libdenort"
+              "path": "/nix/store/zzq283zwa8hs1i9xfshwviffmbzqizhi-deno-2.9.7-libdenort"
             }
           ],
-          "store_path": "/nix/store/94pdxnq7cfdymzmr19144spl0rp34mjg-deno-2.9.5"
+          "store_path": "/nix/store/4jixsxbkgx6wv22kx7s4nnpp4fbmy65l-deno-2.9.7"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/8rzh2fpa3lwqzx9iiz07qbk3b7lsjniw-deno-2.9.5",
+              "path": "/nix/store/q56058iwni5cb6m7rwy76dqdbnwfvbk9-deno-2.9.7",
               "default": true
             },
             {
               "name": "denort",
-              "path": "/nix/store/2h16nirjr5ddd2bz7vxd19q0lawl5cd3-deno-2.9.5-denort"
+              "path": "/nix/store/1v2vnwkksgxhsbwhn00rjsn2gbiq8l9v-deno-2.9.7-denort"
             },
             {
               "name": "libdenort",
-              "path": "/nix/store/8hn63ayil0mk81a7mim21qh4155n3r6j-deno-2.9.5-libdenort"
+              "path": "/nix/store/sp1c5a36z1kfnszdkacyr873f8yw25qm-deno-2.9.7-libdenort"
             }
           ],
-          "store_path": "/nix/store/8rzh2fpa3lwqzx9iiz07qbk3b7lsjniw-deno-2.9.5"
+          "store_path": "/nix/store/q56058iwni5cb6m7rwy76dqdbnwfvbk9-deno-2.9.7"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/7hk2ax3hgs4152cdqsqcq4lfq1a2kla6-deno-2.9.5",
+              "path": "/nix/store/q4f99ywwv55mlmqllaly912qi5jzf19g-deno-2.9.7",
               "default": true
             },
             {
               "name": "denort",
-              "path": "/nix/store/180ds5dqaynm1k7c1j6s5lwlak943z9k-deno-2.9.5-denort"
+              "path": "/nix/store/m0c2qmm4dbkj812q22g0ic88a24lh4xj-deno-2.9.7-denort"
             },
             {
               "name": "libdenort",
-              "path": "/nix/store/3m3rdq6vl231165fycmk5rjc48anrzxi-deno-2.9.5-libdenort"
+              "path": "/nix/store/k7y3nh2c3ym5hn53k3zgn8jbm29jr351-deno-2.9.7-libdenort"
             }
           ],
-          "store_path": "/nix/store/7hk2ax3hgs4152cdqsqcq4lfq1a2kla6-deno-2.9.5"
+          "store_path": "/nix/store/q4f99ywwv55mlmqllaly912qi5jzf19g-deno-2.9.7"
         }
       }
     },
